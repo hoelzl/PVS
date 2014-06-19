@@ -1672,7 +1672,9 @@ pvs-strategies files.")
       pr))
 
 (defun convert-proof-form-to-lowercase (proof-form)
-  (cond ((symbolp proof-form)
+  (cond #+sbcl
+        ((null proof-form) proof-form)
+        ((symbolp proof-form)
 	 (intern (string-downcase proof-form) (symbol-package proof-form)))
 	((consp proof-form)
 	 (cons (convert-proof-form-to-lowercase (car proof-form))
